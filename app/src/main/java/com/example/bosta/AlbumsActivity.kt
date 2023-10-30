@@ -35,11 +35,13 @@ import com.example.bosta.viewmodel.UserViewModel
 
 class AlbumsActivity : ComponentActivity() {
     private val viewModel by viewModels<UserViewModel>()
+    var loading = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = intent.getIntExtra("albumId",-1)
-        println(intent)
+
+        loading = viewModel.loading
 
         setContent {
             BostaTheme {
@@ -48,8 +50,9 @@ class AlbumsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    AlbumPhotosList(photoData = viewModel.photoLiveData, activity = this,modifier= Modifier.fillMaxSize())
+                    AlbumPhotosList(photoData = viewModel.photoLiveData, activity = this,modifier= Modifier.fillMaxSize(),loading =loading)
                     viewModel.getPhotos(intent)
+                    loading =false
                 }
             }
         }
@@ -59,8 +62,10 @@ class AlbumsActivity : ComponentActivity() {
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AlbumPhotosList(photoData:List<PhotosModel>, activity: Activity, modifier: Modifier) {
-
+fun AlbumPhotosList(photoData:List<PhotosModel>, activity: Activity, modifier: Modifier,loading:Boolean) {
+    if(loading){
+        ShowProgressBar(isDisplayed = loading)
+    }
     val textState = remember{ mutableStateOf(TextFieldValue("")) }
 
    Column(){

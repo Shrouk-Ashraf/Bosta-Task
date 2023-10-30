@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun AlbumList(albumData: List<AlbumModel>, userData:UserModel, loading:Boolean,activity :MainActivity) {
-        if(userData.name ==""){
+        if(loading){
             ShowProgressBar(isDisplayed = loading)
         }else{
         LazyColumn {
@@ -94,15 +94,5 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    @Composable
-    fun ShowProgressBar(isDisplayed:Boolean){
-        if(isDisplayed) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-            CircularProgressIndicator(color = Color.Black)}
-        }
-    }
+
 }
