@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Bosta</string>
+    <string name="title_activity_albums">AlbumsActivity</string>
+    <string name="title_activity_photo">PhotoActivity</string>
+</resources>
