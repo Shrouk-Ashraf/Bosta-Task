@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
         if(loading){
             ShowProgressBar(isDisplayed = loading)
         }else{
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(8.dp)) {
 
             item { Text(userData.name, style = TextStyle(
                 color = Color.Black,
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 UserAddress(userData = userData)
             }
 
-            item { Divider(color = Color.Gray, thickness = 0.5.dp, startIndent = 8.dp, modifier = Modifier.padding(vertical = 5.dp)) }
+            item { Divider(color = Color.Gray, thickness = 0.5.dp ,startIndent = 8.dp, modifier = Modifier.padding(vertical = 5.dp)) }
 
             item { Text("My Albums", style = TextStyle(
                 color = Color.Black,

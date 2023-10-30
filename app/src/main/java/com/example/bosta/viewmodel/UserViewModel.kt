@@ -38,10 +38,12 @@ class UserViewModel(): ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             loading =true
             try {
-                var response =async { UserClient().getINSTANCE().getAUser(id = randomId)}
-                userLiveData= response.await()
-                if(response.isCompleted)
-                    loading = false
+                withContext(Dispatchers.IO) {
+                    var response = async { UserClient().getINSTANCE().getAUser(id = randomId) }
+                    userLiveData = response.await()
+                    if (response.isCompleted)
+                        loading = false
+                }
             }catch (e:Exception){
             errorMessage = e.message.toString()
             }
@@ -52,8 +54,10 @@ class UserViewModel(): ViewModel() {
     fun getAlbums(){
         viewModelScope.launch (Dispatchers.IO) {
             try {
+                withContext(Dispatchers.IO){
                 var response =async {   UserClient().getINSTANCE().getAlbumsForAUser(randomId)}
                 albumLiveData= response.await()
+                }
 
             }catch (e:Exception){
                 errorMessage = e.message.toString()
@@ -65,8 +69,10 @@ class UserViewModel(): ViewModel() {
     fun getPhotos(albumId:Int){
         viewModelScope.launch (Dispatchers.IO) {
             try {
+                withContext(Dispatchers.IO){
             var response =async { UserClient().getINSTANCE().getPhotos(albumId)}
                 photoLiveData =response.await()
+                }
             }catch (e:Exception){
                 errorMessage = e.message.toString()
             }
